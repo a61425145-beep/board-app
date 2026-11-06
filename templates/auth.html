@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if mode == 'register' %}Регистрация{% else %}Вход{% endif %}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #12121a; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .auth-box { background: #1c1c28; padding: 40px; border-radius: 16px; border: 1px solid #2a2a3a; width: min(400px, 90vw); text-align: center; }
+  .auth-box h2 { margin-bottom: 20px; }
+  .auth-box input { width: 100%; padding: 12px 16px; margin-bottom: 15px; border-radius: 10px; border: 1px solid #2a2a3a; background: #12121a; color: #fff; font-size: 15px; outline: none; }
+  .auth-box input:focus { border-color: #6c5ce7; }
+  .auth-box button { width: 100%; padding: 14px; background: #6c5ce7; color: #fff; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+  .auth-box button:hover { background: #5a4bd1; }
+  .auth-box .error { color: #ff6b6b; margin-bottom: 15px; font-size: 14px; }
+  .auth-box .switch { margin-top: 20px; font-size: 14px; color: #aaa; }
+  .auth-box .switch a { color: #6c5ce7; text-decoration: none; }
+  .auth-box .switch a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="auth-box">
+  {% if mode == 'register' %}
+    <h2>📝 Регистрация</h2>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form method="POST" action="/register">
+      <input type="text" name="username" placeholder="Придумайте имя" required>
+      <input type="password" name="password" placeholder="Придумайте пароль" required>
+      <button type="submit">Создать аккаунт</button>
+    </form>
+    <div class="switch">Уже есть аккаунт? <a href="/login">Войти</a></div>
+    <div class="switch" style="margin-top:10px;"><a href="/">← Вернуться на доску</a></div>
+  {% else %}
+    <h2>🔑 Вход</h2>
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <form method="POST" action="/login">
+      <input type="text" name="username" placeholder="Ваше имя" required>
+      <input type="password" name="password" placeholder="Ваш пароль" required>
+      <button type="submit">Войти</button>
+    </form>
+    <div class="switch">Нет аккаунта? <a href="/register">Зарегистрироваться</a></div>
+    <div class="switch" style="margin-top:10px;"><a href="/">← Вернуться на доску</a></div>
+  {% endif %}
+</div>
+
+</body>
+</html>
